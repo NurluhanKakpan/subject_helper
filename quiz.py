@@ -91,13 +91,14 @@ def extract_qa_from_pdf():
         return []
 
 def generate_distractors(question, correct_answer):
+    correct_answer_clean = correct_answer.strip().replace('\n', ' ')
     """Generate 3 distractors using Gemini with array response handling."""
     prompt = f"""
     Сгенерируй ТОЛЬКО 3 НЕВЕРНЫХ ответа на вопрос.
     Ответ должен быть строго в ОДНОМ JSON-объекте:
     {{
         "question": "{question}",
-        "correct_answer": "{correct_answer.strip().replace('\n', ' ')}",
+        "correct_answer": "{correct_answer_clean}",
         "incorrect_answers": ["Ответ1", "Ответ2", "Ответ3"]
     }}
     Не используй markdown! Только чистый JSON! Только 3 ответа! Не более! Не менее!  
